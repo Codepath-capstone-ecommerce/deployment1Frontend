@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4bc50f7d.chunk.css",
+    "main.js": "/static/js/main.a5a8c50a.chunk.js",
+    "main.js.map": "/static/js/main.a5a8c50a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8233b8b5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8233b8b5.js.map",
+    "static/css/2.c2e18bb2.chunk.css": "/static/css/2.c2e18bb2.chunk.css",
+    "static/js/2.e0ef66e0.chunk.js": "/static/js/2.e0ef66e0.chunk.js",
+    "static/js/2.e0ef66e0.chunk.js.map": "/static/js/2.e0ef66e0.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.c2e18bb2.chunk.css.map": "/static/css/2.c2e18bb2.chunk.css.map",
+    "static/css/main.4bc50f7d.chunk.css.map": "/static/css/main.4bc50f7d.chunk.css.map",
+    "static/js/2.e0ef66e0.chunk.js.LICENSE.txt": "/static/js/2.e0ef66e0.chunk.js.LICENSE.txt",
+    "static/media/minus_sign.e4c3b23a.svg": "/static/media/minus_sign.e4c3b23a.svg",
+    "static/media/pizza.cc2a278a.png": "/static/media/pizza.cc2a278a.png",
+    "static/media/pizzaoven.c2e51ac8.jpeg": "/static/media/pizzaoven.c2e51ac8.jpeg",
+    "static/media/plus_sign.0a9c5e49.svg": "/static/media/plus_sign.0a9c5e49.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8233b8b5.js",
+    "static/css/2.c2e18bb2.chunk.css",
+    "static/js/2.e0ef66e0.chunk.js",
+    "static/css/main.4bc50f7d.chunk.css",
+    "static/js/main.a5a8c50a.chunk.js"
+  ]
+}
