@@ -53,7 +53,7 @@ export default function Rewards() {
     return (
         <Box>
             <NavBar></NavBar>
-            <Box px={80}>
+            <Box mx={5}>
                 <Box display="flex" justifyContent="space-between" px="auto">
                     <Box display="flex" flexDirection="column" alignItems="flex-start">
                         <Typography>

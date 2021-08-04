@@ -47,12 +47,17 @@ export default function Login(){
         }
 
         setIsProcessing(false)
+        if(data?.user){
         if(data.user.isAdmin){
             navigate("/vendordashboard")
         }else{
             navigate("/accountProfile")
         }
       }
+      else{
+          alert("Invalid Email or Password")
+      }
+    }
 
     const paperStyle = {
         padding:20,
