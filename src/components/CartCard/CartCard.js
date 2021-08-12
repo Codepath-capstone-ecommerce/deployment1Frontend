@@ -14,17 +14,17 @@ export default function CartCard({ product }) {
     const [isLoading, setIsLoading] = useState(false)
     const [img, setImg] = useState([])
     const [price, setPrice] = useState(0)
-    const [total,setTotal] = useState(appState.cart.length)
+    const [total, setTotal] = useState(appState.cart.length)
     let t = 0
-    for (let i =0; i<appState.review.length;i++){
-        t+= appState.review[i].quantity
+    for (let i = 0; i < appState.review.length; i++) {
+        t += appState.review[i].quantity
     }
     const check = appState.review[appState.review.findIndex(products => products.name === product.name)]
-    const initialize = check && t ===total? check.quantity : product.quantity
+    const initialize = check && t === total ? check.quantity : product.quantity
     const [quantity, setQuantity] = useState(initialize);
 
     // console.log(product)
-    // console.log(appState.review)
+    // console.log(appState.cart)
 
     const increment = () => {
         setQuantity((q) => (q + 1))
@@ -52,15 +52,15 @@ export default function CartCard({ product }) {
             return newCart
         }
 
-        if(appState.review.length === uniqueCart.length){
+        if (appState.review.length === uniqueCart.length) {
             const newCart = updateCart()
-    
+
             setAppState((a) => ({
                 ...a,
                 cart: newCart
             }))
         }
-    },[total])
+    }, [total])
 
     //there's a bug with this useffect
     useEffect(() => {
@@ -75,13 +75,13 @@ export default function CartCard({ product }) {
         }
 
         const newTotal = updateTotal()
-        if(newTotal){
+        if (newTotal) {
             setTotal(newTotal)
         }
-        
-    },[appState.review])
 
-    const removeFromCart = () =>{
+    }, [appState.review])
+
+    const removeFromCart = () => {
         const result = appState.review.filter(p => p.name !== product.name)
         const result1 = appState.cart.filter(p => p !== product.name)
         console.log(result1)
@@ -89,19 +89,22 @@ export default function CartCard({ product }) {
             {
                 ...a,
                 review: result,
-                cart:result1
+                cart: result1
             }
         ))
     }
     // console.log(appState.review)
     // console.log(appState.cart)
     useEffect(() => {
+        // console.log('here')
+        // console.log(quantity,product.name)
         const updateReview = () => {
             const name = product.name
             const elementsIndex = appState.review.findIndex(product => product.name === name)
             let newArray = [...appState.review]
+            // console.log(elementsIndex)
             // console.log(appState.review)
-            if (newArray.length && elementsIndex>=0) {
+            if (newArray.length && elementsIndex >= 0) {
                 newArray[elementsIndex].quantity = quantity
                 setAppState((a) => (
                     {
@@ -115,10 +118,7 @@ export default function CartCard({ product }) {
         updateReview()
     }, [quantity])
 
-    // console.log(appState.cart)
     useEffect(() => {
-
-
         const fetchData = async () => {
             try {
                 const productRes = await apiClient.fetchProductByName({ productName: product })
@@ -134,11 +134,13 @@ export default function CartCard({ product }) {
                 obj['img'] = productRes.data.productResponse[0].img
                 obj['quantity'] = quantity
 
+                // console.log(obj)
                 let copy = true
+                console.log(appState.review)
                 // review = [{name:"pizza",'price':2,'img':imgurl,'quantity':3}]
                 // let existReview = appState.review.find((review) => review.name === product.name)
                 // console.log(existReview)
-                for (let i = 0; appState.review.length; i++) {
+                for (let i = 0; i<appState.review.length; i++) {
                     if (appState.review[i].name === product.name) {
                         copy = false
                     }
@@ -151,8 +153,6 @@ export default function CartCard({ product }) {
                         }
                     ))
                 }
-
-
             } catch (err) {
                 setError(err)
             }
@@ -163,38 +163,63 @@ export default function CartCard({ product }) {
     }, [])
 
     return (
-        <Card>
+        // <Box my={1}>
+        <Card style={{
+            borderRadius: 20, borderColor: "#2ed9fb", backgroundColor: 'rgba(43, 219, 253,0.5)',
+            border: `4px solid`, marginTop: 8, marginBottom: 8
+        }}>
             {/* <CardMedia image={img} alt={product.name} height={200} width={150}></CardMedia> */}
             <CardContent>
                 {/* <CardMedia image={img} alt={product.name}></CardMedia> */}
 
-                <Grid container direction="row">
-                    <Grid item xs={4} container direction="row">
-                        <img src={img} width={150} height={150} alt={product.name}></img>
-                        <Box p={8}>
-                            <Typography>{product.name}</Typography>
+                <Grid container direction="row" justifyContent="center" alignItems="center">
+                    <Grid item xs={2} container direction="row">
+                        <img src={img} width={150} height={150} alt={product.name} style={{
+                            borderRadius: 20,}}></img>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <Box>
+                            <Typography style={{ fontWeight: 'bold', fontSize: 20 }}>{product.name}</Typography>
                         </Box>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Box marginTop={8}>
-                            <Typography>Total: ${product.quantity * price}</Typography>
+                    <Grid item xs={2}>
+                        <Box>
+                            <Typography style={{ fontWeight: 'bold', fontSize: 20 }}> ${price}</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={1}>
-                        <Box border={1}  marginTop={8} display="flex" alignItems='center' justifyContent="space-evenly">
-                            <IconButton onClick={() => decrement()}><RemoveIcon/></IconButton>
+                        <Box border={1} display="flex" alignItems='center' justifyContent="space-evenly" style={{
+                            borderRadius: 20, borderColor: "#000", backgroundColor: "#fff",
+                            border: `3px solid`,
+                        }}>
+                            <IconButton disabled={quantity === 1} onClick={() => decrement()}><RemoveIcon /></IconButton>
                             {/* <input type="image" onClick={() => decrement()} id="image" height="40px" width="40px" alt="minus sign" src={minus_sign}></input> */}
                             <Typography>{quantity}</Typography>
-                            <IconButton onClick={() => increment()}><AddIcon/></IconButton>
+                            <IconButton onClick={() => increment()}><AddIcon /></IconButton>
                             {/* <input type="image" onClick={() => increment()} id="image" height="40px" width="40px" alt="plus sign" src={plus_sign}></input> */}
                         </Box>
-                        <Button onClick={removeFromCart}>Remove Item</Button>
+                        {/* <Button onClick={removeFromCart} variant="outlined" style={{
+                                borderRadius: 20, color:"white", borderColor: "#000", backgroundColor: 'rgba(255, 0, 0, 0.75)',
+                                border: `3px solid`,
+                            }} >Remove Item</Button> */}
                     </Grid>
+                    <Grid item xs={3}>
+                        <Box marginLeft={16} marginRight={8}>
+                            <Typography style={{ fontWeight: 'bold', fontSize: 20 }}> ${product.quantity * price}</Typography>
+                        </Box>
+                    </Grid>
+                    <Box justifyContent="center" alignItems='center'>
+                        <Button onClick={removeFromCart} variant="outlined" style={{
+                            borderRadius: 20, color: "white", borderColor: "#000", backgroundColor: 'rgba(255, 0, 0, 0.75)',
+                            border: `3px solid`,
+                        }} >Remove Item</Button>
+                    </Box>
                 </Grid>
 
             </CardContent>
 
         </Card>
+        // </Box>
 
     )
 }

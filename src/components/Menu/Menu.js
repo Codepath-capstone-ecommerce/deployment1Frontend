@@ -8,7 +8,7 @@ import NavBar from "../NavBar/NavBar"
 import { useNavigate } from "react-router-dom";
 import { useAppStateContext } from '../../contexts/appStateContext';
 import apiClient from '../../services/apiClient';
-
+import Footer from '../Footer/Footer'
 
 //class should import appstate that contains products
 //loop through each product to create a menucard
@@ -82,17 +82,17 @@ export default function Menu() {
         <div>
             <NavBar></NavBar>
             <br></br>
-            <Grid container justifyContent="space-around">
+            <Grid container justifyContent="space-around" style={{marginBottom:10 }}>
                 <Grid item xs={2}>
                     {categories.map((cat, idx) => (
                         <Box my={2}>
                             <Card key={idx}>
                                 {active[cat] ?
-                                    <CardActions style={{ backgroundColor: "#2ed9fb" }}>
-                                        <Button onClick={getCat}>{cat}</Button>
+                                    <CardActions style={{ padding:'0px', backgroundColor: "#2ed9fb", borderRadius: "0.25em", borderColor: "#000", border: `3px solid` }}>
+                                        <Button fullWidth style={{ padding:'8px'}} onClick={getCat}>{cat}</Button>
                                     </CardActions> :
-                                    <CardActions>
-                                        <Button onClick={getCat}>{cat}</Button>
+                                    <CardActions style={{ padding:'0px', borderRadius: "0.25em", borderColor: "#000", border: `3px solid` }}>
+                                        <Button fullWidth style={{ padding:'8px'}} onClick={getCat}>{cat}</Button>
                                     </CardActions>}
                             </Card>
                         </Box>
@@ -109,7 +109,9 @@ export default function Menu() {
                         </Box>
                     ))}
                 </Grid>
+               
             </Grid>
+            <Footer/>
         </div>
 
     )

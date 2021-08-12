@@ -19,6 +19,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MessageIcon from '@material-ui/icons/Message';
 import ListIcon from '@material-ui/icons/List';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AssessmentIcon from '@material-ui/icons/Assessment';
@@ -27,6 +28,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useNavigate } from 'react-router';
 import apiClient from '../../services/apiClient';
 import { useAppStateContext } from '../../contexts/appStateContext';
+import NewOrder from '../NewOrder/NewOrder'
+import { Box } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -39,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        backgroundColor:'#2ed9fb'
+        backgroundColor: '#2ed9fb'
     },
     appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -88,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PersistentDrawerLeft({name}) {
+export default function PersistentDrawerLeft({ name }) {
     const classes = useStyles();
     const theme = useTheme();
     const { setAppState } = useAppStateContext()
@@ -106,7 +109,17 @@ export default function PersistentDrawerLeft({name}) {
         await apiClient.logoutUser()
         navigate("/")
         setAppState({
+            first_name: "",
+            last_name: "",
+            email: "",
+            is_admin: false,
             isAuthenticated: false,
+            cart: [],
+            review: [],
+            favorites: [],
+            rewards: 0,
+            address: '',
+            pastOrders: []
         })
     }
 
@@ -129,9 +142,11 @@ export default function PersistentDrawerLeft({name}) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
-                        {name}
-                    </Typography>
+                    <Box display="flex" flexDirection="row" justifyContent="space-between">
+                        <Typography variant="h6" noWrap>
+                            {name}
+                        </Typography>
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -150,17 +165,21 @@ export default function PersistentDrawerLeft({name}) {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button onClick={()=>{navigate('/vendor/currentOrders')}} key={'Current Orders'}>
+                    <ListItem button onClick={() => { navigate('/vendor/currentOrders') }} key={'Current Orders'}>
                         <ListItemIcon><DashboardIcon /></ListItemIcon>
                         <ListItemText primary={'Current Orders'} />
                     </ListItem>
-                    <ListItem button onClick={()=>{navigate('/vendor/pastOrders')}} key={'Past Orders'}>
+                    <ListItem button onClick={() => { navigate('/vendor/pastOrders') }} key={'Past Orders'}>
                         <ListItemIcon><PeopleIcon /></ListItemIcon>
                         <ListItemText primary={'Past Orders'} />
                     </ListItem>
-                    <ListItem button onClick={()=>{navigate('/userAnalytics')}} key={'User Analytucs'}>
-                        <ListItemIcon><AssessmentIcon/></ListItemIcon>
+                    <ListItem button onClick={() => { navigate('/userAnalytics') }} key={'User Analytucs'}>
+                        <ListItemIcon><AssessmentIcon /></ListItemIcon>
                         <ListItemText primary={'User Analytics'} />
+                    </ListItem>
+                    <ListItem button onClick={() => { navigate('/vendor/products') }} key={'Products'}>
+                        <ListItemIcon><FastfoodIcon /></ListItemIcon>
+                        <ListItemText primary={'Products'} />
                     </ListItem>
                     <ListItem button onClick={emptyUser} key={'Clients'}>
                         <ListItemIcon><ExitToAppIcon /></ListItemIcon>

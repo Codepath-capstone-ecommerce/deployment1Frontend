@@ -33,6 +33,14 @@ class ApiClient {
     }
   }
 
+  async updateEmail(data){
+    return await this.request({endpoint: 'user/updateEmail', method: "PUT", data:data})
+  }
+
+  async updateAddress(data){
+    return await this.request({endpoint: 'user/updateAddress', method: "PUT", data:data})
+  }
+
   async createProduct(data){
     return await this.request({endpoint: 'products/create', method: "POST", data:data})
   }
@@ -50,6 +58,10 @@ class ApiClient {
 
   async getWeeklyOrders(data) {
     return await this.request({ endpoint: 'admin/weeklyorders', method: "POST", data:data})
+  }
+
+  async getUserOrders(){
+    return await this.request({endpoint:'order/list', method:"GET"})
   }
 
   async getCurrentOrders(){
